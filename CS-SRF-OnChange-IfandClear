@@ -1,0 +1,29 @@
+**********************************
+function onChange(control, oldValue, newValue, isLoading) {
+   if (isLoading || newValue == '') {
+      return;
+   }
+
+ //When the value is changed to Existing Folder clear the owner fields.
+	if(newValue=="false"){
+		
+		//Clear Owner and backup owner fields
+		g_form.setValue('vs_asset_tag_number_lookup', "");
+		
+		
+	}
+	
+}
+*****************************************************
+function onChange(control, oldValue, newValue, isLoading) {
+   if (newValue == 'No') {
+      return;
+   }
+if(newValue == 'Yes') {}
+   g_form.setValue('vs_ra_restricted_area', '');
+    g_form.setValue('vs_ra_level_of_access', '');
+	g_form.setValue('vs_ra_job_responsibilities', '');
+	g_form.setValue('vs_ra_members_with_restricted_access', '');
+}
+}
+*************************************************************

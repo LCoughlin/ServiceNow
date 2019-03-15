@@ -1,0 +1,24 @@
+************************************************************************************************
+//Scheduled Job - Inactive Authors
+var kb = new GlideRecord('kb_knowledge'); //Create a new glide record and assign to variable
+kb.addQuery('workflow_state','Published'); //List criteria 1
+kb.addQuery('author.active','false'); //List criteria 2
+kb.query();  //Run query
+ 
+var currentauthor ='cleared'; //Set variable value to cleared.
+
+kb.orderBy('author') //Sort records ascending (default) by author
+ 
+while (kb.next()) { //Cycle through the records
+            if (currentauthor != kb.author.name){ //check if current author record matches the variable
+            //gs.log('Author record is ' + kb.author.name + ' and the currentauthor is ' + currentauthor);
+			gs.eventQueue("kb_inactive_authors", kb); //Trigger event for true answer
+			
+			currentauthor = kb.author.name; //set the variable value to the active author
+
+            } else{
+            //do nothing for false answer          
+}
+} 
+********************************************************************************************************
+//

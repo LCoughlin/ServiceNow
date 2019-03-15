@@ -1,0 +1,23 @@
+function onChange(control, oldValue, newValue, isLoading) {
+   if (isLoading || newValue == '') {
+      return;
+   }
+
+ 
+// DELETE ME set the SLA, Service Type, Schedule and Short Description in the Config Item before adding the scripts below.  
+
+	//If the campus selected is Spokane or Alaska, route the task to Facilities Spokane
+	if(newValue == 'vv_campus_alaska' || newValue == 'vv_campus_spokane'){
+		g_form.setValue('vs_swfv_task_group_name', "Facilities Spokane");	
+	}
+	
+	//If the campus selected is Mountlake Terrace, route the task to Facilities MLT
+	else if(newValue == 'vv_campus_mlt'){	
+		g_form.setValue('vs_swfv_task_group_name', "Facilities MLT");	
+	}		
+	
+	//Clear fields if None is reselected
+	else {
+		g_form.clearValue('vs_swfv_task_group_name');
+}
+}

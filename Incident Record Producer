@@ -1,0 +1,17 @@
+//Incident Record Producer Script
+
+//Set the Caller ID to the person opening the record producer
+current.caller_id = current.opened_by;
+current.u_call_back_number = (JSUtil.nil(current.opened_by.phone) ? 'N/A' : current.opened_by.phone);
+
+//Set the Incident ticket description to the fields filled in by the requester.
+current.short_description = 'SecureAuth Problem or Issue - ' + producer.v_secauth_url;
+current.description = 'Who is affected:  ' + producer.v_secauth_affected.getDisplayValue() + '\nAre other people on your team having the same issue:  ' + producer.v_secauth_other +'\nAre all Service Accounts enabled:  ' + producer.v_secauth_saenabled + '\nError message:  ' + producer.v_secauth_error + '\nSecureAuth URL (including Realm):  '  + producer.v_secauth_url + '\nEnvironment:  ' + producer.v_secauth_environment.getDisplayValue();
+
+//Set the Category, the contact type, the state
+current.category = 'Service Requested'; //Will map to Service Requested
+current.contact_type = 'self-service'; //Will map to Self-Service
+current.state = '-2';  //State is Assigned
+current.impact = '3'; //Impact 3-Limited
+current.urgency = '2'; //Urgency 1-High
+current.assignment_group = 'a0e27762dbebbac07cd3f0c6ae9619fd'; //Cybersecurity IAM

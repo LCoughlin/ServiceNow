@@ -1,0 +1,6 @@
+var kb = new GlideRecord('kb_knowledge');
+kb.addEncodedQuery('workflow_state=published^author.active=false');
+kb.query();
+ while (kb.next()) {
+   gs.print('number is ' + kb.number);
+}

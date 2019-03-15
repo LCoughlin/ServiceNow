@@ -1,0 +1,59 @@
+SS-Find VP in subordinate org chart - REVISED BY Leah
+
+//Get requested for user
+var answer = [];
+var sksRequestor = gs.getUser();
+gs.log('*****LC Value of sksRequestor outside function is ' + sksRequestor);
+gs.log('*****LC Value of sksRequestor outside function is ' + sksRequestor.manager);
+getUserTitle(sksRequestor.manager);
+
+function getUserTitle(user) {
+
+  gs.log('*****LC In the getUserTitle function');
+  gs.log('*****LC Value of user from function is ' + user + ' ' + user.getDisplayValue());
+
+  var sksTitle = user.title;
+  gs.log('*****LC Value of sksTitle from function is ' + sksTitle);
+  var sksFuncResult = sksTitle.search('VP');
+  gs.log('*****LC Value of sksFuncResult from function is ' + sksFuncResult);
+  if (sksFuncResult != 0) {
+    //User is not a VP, so look up their manager
+    gs.log('*****LC In the function IF, user is not a VP');
+    getUserTitle(user.manager); //Check next person up the org to see if they have VP in their title
+  } else {
+    //User is a VP
+    gs.log('*****LC In the function ELSE, user ' + user.getDisplayValue() + ' is a VP');
+    answer.push(user);
+    gs.log('*****LC ' + user);
+  }
+}
+
+//Completed version Patrick & Leah - THIS MUST be an Approval USER.
+var answer = [];
+
+//Get requested for user
+var sksRequestor = current.variables.requested_for;
+//gs.log('***Value of sksRequestor outside function is ' + sksRequestor);
+
+getUserTitle(sksRequestor.manager);
+
+function getUserTitle(user) {
+
+//gs.log('In the getUserTitle function');
+//gs.log('Value of user from function is ' + user + ' ' + user.getDisplayValue());
+
+var sksTitle = user.title;
+//gs.log('Value of sksTitle from function is ' + sksTitle);
+var sksFuncResult = sksTitle.search('VP');
+//gs.log('Value of sksFuncResult from function is ' + sksFuncResult);
+if (sksFuncResult != 0) {
+//User is not a VP, so look up their manager
+//gs.log('In the function IF, user is not a VP');
+getUserTitle(user.manager);//Check next person up the org to see if they have VP in their title
+} else {
+//User is a VP
+//gs.log('In the function ELSE, user ' + user.getDisplayValue() + ' is a VP');
+answer.push(user);
+//gs.print(user);
+}
+}

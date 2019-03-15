@@ -1,0 +1,42 @@
+******************************************************
+//field messages
+
+g_form.showFieldMsg('field','message','error'); //red
+g_form.showFieldMsg('field','message','info'); //blue
+
+g_form.hideFieldMsg('field');
+g_form.hideFieldMsg('field') //clears last message on field
+g_form.hideFieldMsg('field', true) //clears all messages for that field
+g_form.hideAllFieldMsgs([type]) //add a type to specify between error or info messages, or leave empty () for all.
+
+******************************************************
+//clear fields
+
+g_form.setValue('field',"");
+
+******************************************************
+//Reference field multiple column display (add to the Variable Attributes)
+
+ref_auto_completer=AJAXTableCompleter,ref_ac_columns=email;company;department,ref_ac_columns_search=true
+
+******************************************************
+//add/remove options from a drop down - client script, not UI
+
+g_form.removeOption('<fieldName>', '<choiceValue>');
+g_form.addOption('<fieldName>', '<choiceValue>');
+
+******************************************************
+//OnChange Client Script for autopopulating a field based on another field.
+
+function onChange(control, oldValue, newValue, isLoading) {
+
+     var owner = g_form.getReference('who_is_the_owner', populateEmail); // populateEmail callback function
+}
+
+function populateEmail(owner) { //reference is passed into callback as first arguments
+
+   g_form.setValue('what_is_the_email_address',owner.email);
+      
+}
+
+******************************************************

@@ -1,0 +1,32 @@
+Debugging 
+jslog example
+
+function onLoad(){
+ 	var x = 7;
+ 	jslog("LEAH: This message is from jslog().");   
+ 	jslog("LEAH: The value of x = " + x); 
+ 	jslog("LEAH: The NeedIt State value = " + g_form.getValue('state'));
+ 	jslog("LEAH: The currently logged in user is " + g_user.getFullName() + ".");
+  }
+  
+Browser log/debugger example
+
+function onLoad() {
+	jslog("This message was written by the jslog() method.");
+	console.log("This message was written by console.log().");
+}
+
+
+Try Catch example
+
+function onLoad() {
+  // Using Try/Catch to trap runtime errors.  
+  // The helloWorld() function does not exist.
+ 	  
+	try{
+		helloWorld();
+	}
+	catch(err){
+		jslog('A JavaScript runtime error occurred: ' + err.message);
+	}
+}

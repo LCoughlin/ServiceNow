@@ -1,0 +1,7 @@
+Client-side only
+g_form.<method name> (e.g., alert(g_form.getValue('fieldname'));)
+
+
+
+
+Server-side

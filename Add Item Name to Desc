@@ -1,0 +1,7 @@
+//add item name to the short description.
+function setFormValues(response){
+	var answer = response.responseXML.documentElement.getAttribute("answer");
+	var item_name = answer.toString();
+	g_form.setValue('vs_swfv_task_short_desc', "Procure " + item_name);
+	g_form.setValue('vs_swfv_opt_task_short_desc', "Install " + item_name);
+}
