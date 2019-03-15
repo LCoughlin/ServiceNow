@@ -1,0 +1,16 @@
+**************************************
+//OnSubmit, check the submitted item for attachments.
+
+function onSubmit() {
+	var requestID = g_form.getUniqueValue();
+	
+	var attachmentGR = new GlideRecord("sys_attachment");  
+	attachmentGR.addQuery("table_name", "sc_cart_item");  
+	attachmentGR.addQuery("table_sys_id", requestID);  
+	attachmentGR.query();  
+	
+	if (!gr.next()) {  
+		alert("For multiple actions, you must attach the form to submit.");  
+		return false;
+	}
+}

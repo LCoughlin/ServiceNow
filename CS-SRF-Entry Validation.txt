@@ -1,0 +1,56 @@
+****************************************************
+//Verify that the value entered is only a whole number.
+
+function onChange(control, oldValue, newValue, isLoading) {  
+if(!isLoading){  
+	var val = newValue;  
+        var achar = '0123456789'; //Values to check for in this have only allowed number but you could to special characters or letters  
+        var failmsg = 'Enter Here the message you wish to display to the user.';  
+          
+        //create an array that is all lowercase based on the value, if you want this case sensitive remove .toLowerCase()  
+          
+        var array1 = val.toLowerCase().split('');  
+        for (var i=0; i < array1.length; i++){  
+            if (achar.indexOf(array1[i]) >= '0'){  
+            }  
+            else{  
+                alert(failmsg);  
+                g_form.setValue('replace_with_field_this_is_run_against', ''); //clear out the field if value contains a character that does not match.  
+            }  
+        }  
+    }  
+}  
+	   
+*******************************************************************************
+//Date validation 
+function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+
+   if (isLoading || newValue === '') {
+
+      return;
+
+   }
+
+  //current date  
+
+  var currentDateObj = new Date();  
+
+  var currentDateStr = formatDate(currentDateObj, g_user_date_format);  
+
+  var currentDateNum = getDateFromFormat(currentDateStr, g_user_date_format);  
+
+  var startDateNum = getDateFromFormat(newValue, g_user_date_format);  
+
+          
+
+    if (startDateNum <= currentDateNum) {  
+
+    g_form.showFieldMsg('Please ensure that the Expiry date is in the future!', 'error');
+
+  return false;
+
+  }
+
+}  
+
+

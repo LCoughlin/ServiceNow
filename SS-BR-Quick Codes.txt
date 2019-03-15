@@ -1,0 +1,13 @@
+******************************************************
+//set the date out a year
+current.valid_to = gs.monthsAgo(-12);
+
+******************************************************
+//deletes schedules for the current rota record (set to run after delete of a record on the rota table)
+if (current.schedule) {
+   var gr = new GlideRecord("cmn_schedule");
+   if (gr.get(current.schedule))
+      gr.deleteRecord();
+}
+
+*******************************************************

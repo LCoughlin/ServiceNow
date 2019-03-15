@@ -1,0 +1,47 @@
+***************************************************
+#PowerShell Script that submits a Premera Listens request through ServiceNow Service Catalog externally.#Premera Listen Example:
+
+         #The User ID's and Password from ServiceNow used for the API Call.
+                    $SNowUser =  'pbcpremeralistens'
+            $SNowPass = ConvertTo-SecureString –String 'X*uWY7-2[^dCxmBM'  –AsPlainText -Force
+
+            $SNowCreds = New-Object –TypeName System.Management.Automation.PSCredential –ArgumentList $SNowUser, $SNowPass
+
+            $headers = @{
+            Accept = "application/json"
+            }
+                    
+$inputfrompremeralistens = 'I had an issue with my claim and would like you to look into it. My name is Premera User.'
+
+#Place the Catalog Item Sys_ID in the replace with sys_id example $catalogssid = '81667ac3dbaeef40772a6033ca96196f'
+$catalogssid = '63e59b5bdb2a6380772a6033ca961903'
+#All order MUST have 'sysparm_quantity' = '1' and the variables to pass example
+#The requested by and requested for field AREN'T required they will default to the account running the submit.
+#$bodyForOrder = @{
+#'sysparm_quantity' = '1'
+#'variables' = @{
+#'requested_by' = "9e2c1adedb047600764a7deaae961946"  
+#'requested_for' = "9e2c1adedb047600764a7deaae961946"
+#'request_information' = "Mikeeeee test"
+#}}
+   $bodyForOrder = @{
+'sysparm_quantity' = '1'
+'variables' = @{
+'customer_response' = $inputfrompremeralistens
+
+}}
+  
+##Using the following 
+     $bodyJson = $bodyForOrder | ConvertTo-Json
+     $response = Invoke-RestMethod -Credential $SNowCreds -Headers $headers -Method POST -Uri "https://nwhealthconnectiondev.service-now.com/api/sn_sc/servicecatalog/items/$catalogssid/order_now" -Body $bodyJson -ContentType "application/json"
+    
+Write-Output $response.result.request_number   
+
+
+Mike Proctor
+Software Development Engr III 
+IT Service Management
+Manager: Troy Kinsey
+Business Phone: 425-918-4317
+Cell Phone: 253-653-0010
+

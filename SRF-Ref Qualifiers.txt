@@ -1,0 +1,17 @@
+************************************************************************
+//Example reference qualifier scripts
+
+//Auto populate a field with the email address of the current user using the Default Value field
+ 
+javascript:gs.getUser().getRecord().getValue('email');
+
+***********************************************************************
+//CI Not Found, Reference: CMDB_CI table.
+//For servers: 
+javascript: 'install_status!=7^sys_class_name=cmdb_ci_win_server^ORsys_class_name=cmdb_ci_esx_server^ORsys_class_name=cmdb_ci_storage_server^ORsys_class_name=cmdb_ci_linux_server^ORname=CI not found^' + new MDSUtils().ciRefQual()
+
+***********************************************************************
+//Show the records that meet the condition.... not sure how this works, but here is the code:
+show_condition_count=true,condition_builder=v2
+
+***********************************************************************

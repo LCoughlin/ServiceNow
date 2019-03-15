@@ -1,0 +1,16 @@
+***************************************************
+//get values entered on a form, and perform a calculation with them to populate an additional field
+
+function onChange(control, oldValue, newValue, isLoading) {
+   if (isLoading || newValue == '') {
+      return;
+   }  //if the entry is loading result, or matches what was already in the field, do nothing
+
+   //Calculate and autopopulate the new disk total size based on entries in the existing disk size field, and extend by field.
+	var diskSizeVal = g_form.getValue('existing_disk_size');  
+	var extendedVal = newValue;
+	var totalVal = Number(diskSizeVal) + Number(newValue);
+	g_form.setValue('new_disk_total_size', totalVal);
+	   
+}
+*************************************************************************************

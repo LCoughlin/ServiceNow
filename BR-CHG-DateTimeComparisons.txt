@@ -1,0 +1,25 @@
+//Business rule that will compare the In Progress Start date to the Planned date and flag it if outside the change window
+
+var start_date = changeData.start_date.dateNumericValue();
+var end_date = changeData.end_date.dateNumericValue();
+var update = changeData.sys_updated_on.dateNumericValue();
+               }              
+var date1 = update;
+var start_date_mill = start_date;
+
+var minutes = (15*60*1000);
+var calc = (date1-start_date);
+var minus = (start_date-date1);
+
+if (date1-start_date <= minutes) {
+    
+//This is where you would check the box.
+}
+if (date1-end_date >= minutes) {
+//This is where you would check the box.
+
+}
+gs.print(date1);
+gs.print(start_date_mill);
+gs.print(minutes);
+gs.print(minus);

@@ -1,0 +1,13 @@
+//this will pull in the extension of a user by name when the name is in a Reference field to the sys_user table.
+
+function onChange(control, oldValue, newValue, isLoading) {
+
+	var user = g_form.getReference('New_assistant_name', setPhone);
+}
+
+function setPhone(user){
+   if(newValue != ''){
+	var p_num = user.phone;
+	g_form.setValue('new_assistant_ext', p_num);
+   }
+}

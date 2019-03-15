@@ -1,0 +1,49 @@
+/*This will return a column other than the display column/or SysID 
+from the referenced table to another variable for the items selected in the List collector.
+
+You must have a list collector variable, and a hidden variable to dump column info for the selected items into
+Then you must have both the script include and the client scripts below*/
+
+var pbcGetUserEmail = Class.create();
+pbcGetUserEmail.prototype = Object.extendsObject(AbstractAjaxProcessor, {
+
+getuseremail: function() { 
+var users = this.getParameter('sysparm_what_email_address');
+var result = [];
+
+var emailaddress = new GlideRecord ('sys_user');
+emailaddress.addQuery('sys_id','IN',users);
+emailaddress.query();
+while(emailaddress.next())
+{
+result.push((emailaddress.first_name+' '+emailaddress.last_name+' '+emailaddress.email).toString());
+}
+
+var stringi = JSON.stringify(result);
+
+return stringi;
+
+}
+});
+
+//Client Script example: (PBC) Set Email MultiLine Values from the Azure Monitoring SRF
+function onChange(control, oldValue, newValue, isLoading) {
+if (isLoading || newValue == '') {
+return;
+}
+
+var _string = g_form.getValue('what_email_address').toString();
+var _variable = new GlideAjax('pbcGetUserEmail');
+_variable.addParam('sysparm_name','getuseremail');
+_variable.addParam('sysparm_what_email_address', _string);
+_variable.getXML(setEdit);
+}
+function setEdit(response){
+answer = response.responseXML.documentElement.getAttribute('answer');
+var fields = [];
+fields = JSON.parse(answer);
+g_form.setValue('what_email_address_multi',answer);
+
+}
+
+

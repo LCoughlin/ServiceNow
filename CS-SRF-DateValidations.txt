@@ -1,0 +1,50 @@
+*******************************************************************
+//See SRF: Communication Request, Client Scripts for an example
+function onChange(control, oldValue, newValue, isLoading) {
+	if (isLoading || newValue == '') {
+		return;
+	}
+
+	//Start a new system date with the date() function
+	var dtDate = new Date();
+	
+	//Set the checkDate variable to our current system time + 3 days
+	var checkDate = new Date(dtDate.setDate(dtDate.getDate() + 3));
+
+	//Use the date() function to convert the sting value of the entered/selected date to a date object
+	var chosenDate = new Date(newValue.toString());
+
+	//Compare the two dates, this can be done in multiple ways depending on requirements
+	if(chosenDate < checkDate){
+	 alert('You must select a date that is 3 or more days before the send date.');
+	 g_form.setValue('v_comm_req_comm_date',''); 	
+		}
+}
+
+************************************************************************
+
+	//Get the current date from the system and the date for adoption that the user entered, 
+	and validate that it is at least 30 days out. If not, return an error and clear the field.
+	
+	function onChange(control, oldValue, newValue, isLoading) {  
+	     if (isLoading || newValue == '')  
+	          return; 
+		
+		//Get the user entered date, and set the format.
+	    var cdt = g_form.getValue('v_sso_adoptdate'); //First Date/Time field  
+	    var ajax = new GlideAjax('TestLC');  
+	    ajax.addParam('sysparm_name','checkWithin30Days');  
+	    ajax.addParam('sysparm_fdt', cdt);  
+	    ajax.getXML(validate);  
+	}
+	
+	 
+	function validate(response){  
+		g_form.hideAllFieldMsgs();
+		var isWithin30Days = response.responseXML.documentElement.getAttribute("answer");
+	    if(isWithin30Days == 'true'){
+			g_form.showFieldMsg('v_sso_adoptdate', "Please select a date that is at least 30 days from today to provide sufficient time to fulfill your request.", 'error');
+		   g_form.setValue('v_sso_adoptdate', "");	
+		}
+	 return;
+}

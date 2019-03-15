@@ -1,0 +1,19 @@
+**************************************
+//This is an OnChange Client Script that will redirect to another catalog item, based on the selection in a Select Box variable.
+//You set what option value is selected, provide an alert for the user to understand what is happening, and then set the
+//top.window.location to the sys_id of the new item.
+
+function onChange(control, oldValue, newValue, isLoading) {
+   if (isLoading || newValue == '') {
+      return;
+   }
+
+ 	if(newValue == 'test_redirect'){
+		alert("You will now be redirected to the proper catalog item.");
+		top.window.location = "/sp?id=sc_cat_item&sys_id=7b19629bdb27fa44da1356f3ce9619eb";
+	}else if (newValue == 'another_option'){
+		alert("You will now be redirected to the proper catalog item.");
+		top.window.location = "/sp?id=sc_cat_item&sys_id=7b19629bdb27fa44da1356f3ce9619eb";
+	}
+   
+}

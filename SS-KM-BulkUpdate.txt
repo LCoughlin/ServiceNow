@@ -1,0 +1,28 @@
+*********************************************************
+//updates the Valid To dates for all articles with <=4/30/2019
+var kb = new GlideRecord('kb_knowledge');
+kb.addEncodedQuery('workflow_state=published^valid_to<=javascript:gs.dateGenerate('2019-04-30','12:00:00')');     
+//Fetches all records before last year
+kb.query();
+while(kb.next()){
+var gdt = new GlideDateTime(kb.valid_to.toString());   //Gets the last updated date 
+gdt.addYearsUTC(1)     //Adds One year to it
+kb.setWorkflow(false);   
+kb.valid_to = gdt.getDate();   //Sets valid to as one year + last updated date
+kb.update();
+}
+
+*************************************************************
+
+//updates the author for all published articles for a specific author
+var kb = new GlideRecord('kb_knowledge');
+kb.addEncodedQuery('workflow_state=published^author.name=Saul Candib');     
+//Fetches all published articles for the author
+kb.query();
+while(kb.next()){
+kb.setWorkflow(false);   
+kb.author = "Michelle Christman";   
+kb.update();
+}
+
+**************************************************************
